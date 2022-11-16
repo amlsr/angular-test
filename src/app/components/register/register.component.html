@@ -1,0 +1,64 @@
+<div class="container">
+    <h3>Employee Details</h3>
+    <form [formGroup]="employeeForm" (submit)="formSubmit()">
+        <div class="form-group">
+            <label for="name">Name <span class="mandatory">*</span></label>
+            <input class="form-control" type="text" name="name" id="name" formControlName="name" placeholder="Name">
+        </div>
+        <div class="form-group">
+            <label for="address">Address <span class="mandatory">*</span></label>
+            <textarea class="form-control" type="text" name="address" id="address" formControlName="address" placeholder="Address" rows="6"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="dob">DOB <span class="mandatory">*</span></label>
+            <input class="form-control" type="date" name="dob" id="dob" formControlName="dob" placeholder="DOB">
+        </div>
+        <div class="form-group">
+            <label for="role">Role <span class="mandatory">*</span></label>
+            <select class="form-control" name="role" id="role" formControlName="role">
+                <option value="" disabled>Select Role</option>
+                <option *ngFor="let role of roles" [value]="role.value">{{ role.label }}</option>
+            </select>
+        </div>
+        <div class="form-group" style="margin-bottom: 15px;">
+            <label style="margin: 15px 0px; display: block;">Gender <span class="mandatory">*</span></label>
+            <label for="male">Male</label>
+            <input type="radio" id="male" value="Male" name="gender" formControlName="gender">
+            <label for="female">Female</label>
+            <input type="radio" id="female" value="Female" name="gender" formControlName="gender">
+            <label for="others">Others</label>
+            <input type="radio" id="others" value="Others" name="gender" formControlName="gender">
+        </div>
+        <div class="form-group" formArrayName="phone">
+            <label>Phone <span class="mandatory">*</span></label> 
+            <button type="button" class="btn primary" (click)="addPhone()" *ngIf="currentLimit < 10"><i class="fa-solid fa-plus"></i></button>
+            <div class="form-group grid" *ngFor="let phone of phones.controls; let i=index">
+                <div><input type="number" id="phone - {{ i }}" class= "form-control" [formControlName]="i"></div>
+                <div>
+                <button *ngIf="i > 0" type="button" class="btn form-control danger" (click)="removePhone(i)"><i class="fa-solid fa-minus"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" >
+            <button type="submit" class="btn primary">Submit</button>
+        </div>
+    </form>
+</div>
+<app-popup *ngIf="popupMode === 'validation'">
+    <div class="form-group">
+        <p>Please enter all the fields with valid data.</p>
+    </div>
+    <div class="form-group">
+        <button type="button" class="btn primary" (click)="popupMode = null">OK</button>
+    </div>
+</app-popup>
+
+<app-popup *ngIf="popupMode === 'success'">
+    <div class="form-group">
+        <p>Employee details was saved successfully.</p>
+    </div>
+    <div class="form-group">
+        <button type="button" class="btn primary" (click)="addAnother()">Add another</button>
+        <button type="button" class="btn primary" (click)="goToListing()">Go to listing</button>
+    </div>
+</app-popup>

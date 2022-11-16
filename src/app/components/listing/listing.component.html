@@ -1,0 +1,25 @@
+<div class="container">
+    <h3>Employee List</h3>
+
+    <table class="table" *ngIf="employeeDetails.length > 0; else noData">
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Gender</th>
+            <th>Role</th>
+            <th>Date of birth</th>
+            <th>Phone Numbers</th>
+        </tr>
+        <tbody>
+            <tr *ngFor="let details of employeeDetails">
+                <td>{{ details.name }}</td>
+                <td><pre>{{ details.address }}</pre></td>
+                <td>{{ details.gender }}</td>
+                <td>{{ details.role }}</td>
+                <td>{{ details.dob }}</td>
+                <td><div *ngFor="let number of details.phone">{{ number }}</div></td>
+            </tr>
+        </tbody>
+    </table>
+    <ng-template #noData><p>No data available</p></ng-template>
+</div>

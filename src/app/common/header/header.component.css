@@ -1,0 +1,13 @@
+.header {
+    background-color: black;
+    overflow: hidden;
+}
+
+.navigator {
+    padding: 20px;
+}
+
+.navigator a {
+    color: #fff;
+    text-decoration: none;
+}
